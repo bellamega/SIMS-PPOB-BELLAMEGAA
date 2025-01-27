@@ -1,0 +1,46 @@
+/* InputField.css */
+.inputField {
+    display: flex;
+    align-items: center; /* Memastikan label dan input sejajar secara vertikal */
+    margin-bottom: 1.5rem;
+  }
+  
+  .inputField label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 1rem; /* Memberikan jarak antara label dan input */
+    width: 120px; /* Bisa sesuaikan dengan lebar label yang diinginkan */
+  }
+  
+  .inputField input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .inputField input:focus {
+    border-color: #ff0000;
+    outline: none;
+  }
+  
+  /* RegisterForm.css */
+
+/* Tambahkan styling untuk tombol registrasi */
+.button-red {
+    background-color: #ff0000; /* Warna latar belakang merah */
+    color: white; /* Warna teks putih */
+    padding: 0.8rem 1.5rem; /* Padding agar tombol terlihat lebih besar */
+    font-size: 1rem; /* Ukuran font */
+    border: none; /* Menghilangkan border default */
+    border-radius: 5px; /* Membuat sudut tombol melengkung */
+    cursor: pointer; /* Menambahkan kursor pointer saat hover */
+    transition: background-color 0.3s; /* Efek transisi saat hover */
+  }
+  
+  /* Hover effect - mengubah warna saat tombol dihover */
+  .button-red:hover {
+    background-color: #e60000; /* Warna merah sedikit lebih gelap saat dihover */
+  }
+  

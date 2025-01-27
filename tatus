@@ -1,0 +1,30 @@
+[33mcommit c1363253807dc86fe1609a9f3e520a2aa8d04542[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mSIMS-PPOB-BellaMega[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/SIMS-PPOB-BellaMega[m[33m, [m[1;32mmain[m[33m)[m
+Author: bellamega <bella.mega49@gmail.com>
+Date:   Mon Jan 27 00:07:46 2025 +0700
+
+    Delete .gitignore
+
+[33mcommit 79982a2f31e81defbfcb73b5ed2d8a6d2e7fc501[m
+Author: bellamega <bella.mega49@gmail.com>
+Date:   Sun Jan 26 23:59:58 2025 +0700
+
+    Update configuration and fix Babel plugin issues
+
+[33mcommit eb52258ca23deb80f73a81f92afcf56610d31196[m[33m ([m[1;31morigin/master[m[33m)[m
+Merge: a56b87c 2b5e281
+Author: bellamega <bella.mega49@gmail.com>
+Date:   Sun Jan 26 22:53:40 2025 +0700
+
+    Resolved merge conflict in README.md
+
+[33mcommit a56b87c6f77c9f7b1fdb2d32dcf8d10ead7bd482[m
+Author: bellamega <bella.mega49@gmail.com>
+Date:   Sun Jan 26 22:11:59 2025 +0700
+
+    Initial commit
+
+[33mcommit 2b5e2817da0099ce60579469b85d78be387124b8[m
+Author: bellamega <bella.mega49@gmail.com>
+Date:   Sun Jan 26 21:57:32 2025 +0700
+
+    Initial commit

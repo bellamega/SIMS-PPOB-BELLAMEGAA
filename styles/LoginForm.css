@@ -1,0 +1,21 @@
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .loginForm {
+    display: flex;
+    gap: 20px; /* Jarak antara ilustrasi dan formulir */
+  }
+  
+  .formWrapper {
+    flex: 1; /* Agar formulir mengisi ruang yang tersedia */
+  }
+  
+  
+  .illustration {
+    max-width: 300px;
+    max-height: 300px; /* Sesuaikan ukuran ilustrasi */
+  }

@@ -1,0 +1,152 @@
+/* Transaction.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+  }
+  
+  .transaction-container {
+    max-width: 800px; /* Mengatur lebar maksimum */
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .nav-links li {
+    margin-left: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .welcome-section {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .welcome-section h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+  
+  .balance-card {
+    background-color: #ff5733;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .balance {
+    font-size: 1.8em;
+    font-weight: bold;
+  }
+  
+  .view-balance {
+    background-color: #fff;
+    color: #ff5733;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .transaction-section {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .transaction-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .transaction-item:last-child {
+    border-bottom: none;
+  }
+  
+  .transaction-amount {
+    font-size: 1em;
+    font-weight: bold;
+  }
+  
+  .transaction-amount.positive {
+    color: #28a745; /* Hijau untuk saldo masuk */
+  }
+  
+  .transaction-amount.negative {
+    color: #dc3545; /* Merah untuk saldo keluar */
+  }
+  
+  .transaction-details {
+    text-align: right;
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .transaction-type {
+    font-style: italic;
+  }
+  
+  .show-more {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    background-color: #ff5733;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .show-more:hover {
+    background-color: #e04d2a;
+  }
+
+  /* Mengatur gaya link di dalam nav-links */
+.nav-links a {
+    color: black; /* Warna teks hitam */
+    text-decoration: none; /* Menghilangkan underline */
+  }
+  
+  /* Opsional: Mengatur hover agar lebih interaktif */
+  .nav-links a:hover {
+    color: gray; /* Warna teks saat hover */
+    text-decoration: underline; /* Opsional: Tambahkan underline saat hover */
+  }
+ 
+  

@@ -1,0 +1,150 @@
+/* General styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+  }
+  
+  .top-up-container {
+    padding: 1rem;
+  }
+  
+  /* Header styles */
+  .top-up-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: white;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .top-up-header h1 {
+    color: #e74c3c;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .top-up-header nav a {
+    margin-left: 1rem;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .top-up-header nav a:hover {
+    color: #e74c3c;
+  }
+  
+  /* Balance card */
+  .top-up-balance {
+    background-color: #e74c3c;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .top-up-balance h2 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  
+  .balance-amount {
+    font-size: 2rem;
+    margin: 0.5rem 0;
+  }
+  
+  .hide-balance {
+    background: none;
+    border: none;
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  /* User greeting */
+  .user-greeting h3 {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .user-greeting h2 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  /* Top up section */
+  .top-up-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 1rem;
+  }
+  
+  .top-up-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .top-up-form input {
+    flex: 1;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .top-up-button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .top-up-button:hover {
+    background-color: #d62c1a;
+  }
+  
+  /* Predefined amounts */
+  .predefined-amounts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .predefined-amounts button {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .predefined-amounts button:hover {
+    border-color: #e74c3c;
+    color: #e74c3c;
+  }
+  
+  /* Gaya untuk link */
+nav a {
+    color: inherit; /* Mengambil warna default dari elemen induk (misalnya warna teks utama) */
+    text-decoration: none; /* Menghapus garis bawah */
+    transition: color 0.3s ease; /* Menambahkan animasi transisi warna */
+  }
+  
+  nav a:hover {
+    color: #007bff; /* Warna biru saat dihover */
+  }
+  

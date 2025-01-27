@@ -1,0 +1,95 @@
+.registerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f7f7f7;
+}
+
+.formContainer {
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  text-align: center;
+  color: #666;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.inputField {
+  margin-bottom: 1.5rem;
+}
+
+.inputField label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.inputField input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.inputField input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.button-blue {
+  width: 100%;
+  padding: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.button-blue:hover {
+  background-color: #0056b3;
+}
+
+.illustrationContainer {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .registerContainer {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2rem;
+  }
+
+  .illustrationContainer {
+    display: block;
+    flex: 1;
+    max-width: 400px;
+  }
+
+  .illustration {
+    width: 100%;
+    border-radius: 8px;
+  }
+}

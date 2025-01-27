@@ -1,0 +1,1 @@
+import Card from '../../components/ui/Card'; // Path relatif dari src/pages
