@@ -17,6 +17,12 @@ const TopUpPage = () => {
   const token = localStorage.getItem("jwtToken");
 
   useEffect(() => {
+    // Pastikan token tersedia sebelum memulai pengambilan data saldo
+    if (!token) {
+      setError("Token tidak ditemukan. Silakan login terlebih dahulu.");
+      return;
+    }
+
     // Fetch user name from localStorage if exists
     const fetchedUserName = localStorage.getItem("userName");
     if (fetchedUserName) setUserName(fetchedUserName);
@@ -28,13 +34,14 @@ const TopUpPage = () => {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`, // Menambahkan token ke header
             },
           }
         );
         setBalance(response.data.balance);
       } catch (err) {
         console.error("Error fetching balance:", err);
+        setError("Gagal mengambil saldo.");
       }
     };
 
@@ -62,22 +69,26 @@ const TopUpPage = () => {
       return;
     }
 
+    if (!token) {
+      setError("Token tidak ditemukan. Silakan login terlebih dahulu.");
+      return;
+    }
+
     try {
       setLoading(true);
       setError("");
       setSuccessMessage("");
 
       await axios.post(
-  "https://take-home-test-api.nutech-integrasi.com/topup",
-  { top_up_amount: Number(topUpAmount) },
-  {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  }
-);
-
+        "https://take-home-test-api.nutech-integrasi.com/topup",
+        { top_up_amount: Number(topUpAmount) },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Menambahkan token ke header
+          },
+        }
+      );
 
       setSuccessMessage(
         `Top Up berhasil! Saldo Anda bertambah sebesar Rp${Number(
