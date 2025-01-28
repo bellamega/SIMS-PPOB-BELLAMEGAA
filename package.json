@@ -17,10 +17,14 @@
     "style-loader": "^4.0.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "node ./node_modules/react-app-rewired/bin/index.js build",
-    "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
+  "prestart": "chmod +x node_modules/.bin/react-app-rewired",
+  "start": "react-app-rewired start",
+  "prebuild": "chmod +x node_modules/.bin/react-app-rewired",
+  "build": "react-app-rewired build",
+  "test": "react-app-rewired test",
+  "eject": "react-scripts eject"
+},
+ect": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
