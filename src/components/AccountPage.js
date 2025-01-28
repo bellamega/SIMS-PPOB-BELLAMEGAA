@@ -1,51 +1,80 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom'; // Correct import
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setProfile } from '../redux/slice/profileSlice'; // Pastikan path-nya benar
-import './styles/AccountPage.css'; // Correct import for CSS
+import { setProfile } from "../redux/slice/profileSlice";
+import "./styles/AccountPage.css";
 
 const AccountPage = () => {
   const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
+  const [formState, setFormState] = useState({
+    firstName: profile.firstName || "",
+    lastName: profile.lastName || "",
+    email: profile.email || "",
+  });
+
   useEffect(() => {
-    // Fetch user data from API and set to Redux state
     const fetchUserData = async () => {
-      // Example of API call
       const userData = {
         email: "wallet@nutech.com",
         firstName: "Kristanto",
         lastName: "Wibowo",
       };
-      dispatch(setProfile(userData)); // Dispatch the profile data to Redux store
+      dispatch(setProfile(userData));
     };
     fetchUserData();
   }, [dispatch]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(setProfile(formState));
+  };
 
   return (
     <div className="container">
       <header className="header">
         <h1 className="logo">SIMS PPOB</h1>
         <nav className="nav">
-          <Link to="/topup" className="nav-link">Top Up</Link>
-          <Link to="/transaction" className="nav-link">Transaction</Link>
-          <Link to="/account" className="nav-link active">Akun</Link>
+          <Link to="/topup" className="nav-link">
+            Top Up
+          </Link>
+          <Link to="/transaction" className="nav-link">
+            Transaction
+          </Link>
+          <Link to="/account" className="nav-link active">
+            Akun
+          </Link>
         </nav>
       </header>
       <main className="main">
         <div className="avatar-container">
-          <img src="https://via.placeholder.com/100" alt="User Avatar" className="avatar" />
+          <img
+            src={profile.avatar || "https://via.placeholder.com/100"}
+            alt="User Avatar"
+            className="avatar"
+          />
           <button className="edit-button">✏️</button>
         </div>
-        <h2 className="username">{profile.firstName} {profile.lastName}</h2>
-
-        <form className="form">
+        <h2 className="username">
+          {profile.firstName} {profile.lastName}
+        </h2>
+        <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form-label">Email</label>
             <input
               type="email"
               name="email"
-              value={profile.email}
+              value={formState.email}
+              onChange={handleChange}
               className="form-input"
               readOnly
             />
@@ -55,7 +84,8 @@ const AccountPage = () => {
             <input
               type="text"
               name="firstName"
-              value={profile.firstName}
+              value={formState.firstName}
+              onChange={handleChange}
               className="form-input"
             />
           </div>
@@ -64,11 +94,14 @@ const AccountPage = () => {
             <input
               type="text"
               name="lastName"
-              value={profile.lastName}
+              value={formState.lastName}
+              onChange={handleChange}
               className="form-input"
             />
           </div>
-          <button type="submit" className="submit-button">Simpan</button>
+          <button type="submit" className="submit-button">
+            Simpan
+          </button>
         </form>
       </main>
     </div>
