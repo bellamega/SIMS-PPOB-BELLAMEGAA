@@ -34,6 +34,8 @@ const LoginForm = ({ setIsLoggedIn }) => {
         if (result && result.data && result.data.token) {
           console.log('Login berhasil:', result);
           localStorage.setItem('token', result.data.token); // Save the token
+          localStorage.setItem('isLoggedIn', 'true'); // Save login status
+          setIsLoggedIn(true); // Update login state
           navigate('/home'); // Navigate to home page
         } else {
           console.error('Token tidak ditemukan dalam respons');
