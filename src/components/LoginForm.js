@@ -1,8 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InputField from './InputField';
 import './styles/LoginForm.css';
 import illustrator from './assets/illustrator.png';
+
+// Komponen untuk menampilkan banner
+const BannerComponent = () => {
+  const [banners, setBanners] = useState([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const response = await fetch('https://take-home-test-api.nutech-integrasi.com/banner', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.status === 0 && data.data) {
+            setBanners(data.data);
+          } else {
+            setError('No banners available');
+          }
+        } else {
+          setError('Failed to load banners');
+        }
+      } catch (err) {
+        console.error('Error fetching banners:', err);
+        setError('Error fetching banners');
+      }
+    };
+
+    fetchBanners();
+  }, []);
+
+  return (
+    <div className="bannerContainer">
+      {error && <p>{error}</p>}
+      {banners.length > 0 ? (
+        banners.map((banner, index) => (
+          <div key={index} className="bannerItem">
+            <img src={banner.banner_image} alt={banner.banner_name} className="bannerImage" />
+            <h3>{banner.banner_name}</h3>
+            <p>{banner.description}</p>
+          </div>
+        ))
+      ) : (
+        <p>No banners available</p>
+      )}
+    </div>
+  );
+};
 
 const LoginForm = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
@@ -96,6 +148,9 @@ const LoginForm = ({ setIsLoggedIn }) => {
       <div className="illustrationContainer">
         <img src={illustrator} alt="Illustration" className="illustration" />
       </div>
+
+      {/* Menambahkan komponen BannerComponent untuk menampilkan banner */}
+      <BannerComponent />
     </div>
   );
 };
