@@ -13,6 +13,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Cek jika email atau password kosong
     if (!email || !password) {
       setError('Email and password are required');
       return;
@@ -21,6 +22,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
     const data = { email, password };
 
     try {
+      // Request login ke API
       const response = await fetch('https://take-home-test-api.nutech-integrasi.com/login', {
         method: 'POST',
         headers: {
@@ -29,23 +31,31 @@ const LoginForm = ({ setIsLoggedIn }) => {
         body: JSON.stringify(data),
       });
 
+      // Jika login berhasil (status 200)
       if (response.ok) {
         const result = await response.json();
         if (result && result.data && result.data.token) {
           console.log('Login berhasil:', result);
-          localStorage.setItem('token', result.data.token); // Save the token
-          localStorage.setItem('isLoggedIn', 'true'); // Save login status
-          setIsLoggedIn(true); // Update login state
-          navigate('/home'); // Navigate to home page
+
+          // Simpan token di localStorage
+          localStorage.setItem('token', result.data.token); 
+          localStorage.setItem('isLoggedIn', 'true'); // Set login status ke true
+          
+          setIsLoggedIn(true); // Update state login
+          
+          // Navigasi ke halaman home setelah login berhasil
+          navigate('/home');
         } else {
           console.error('Token tidak ditemukan dalam respons');
           setError('Login failed, token not found.');
         }
       } else {
+        // Jika response tidak oke (misalnya status 400 atau 500)
         const errorData = await response.json();
         setError(errorData.message || 'Terjadi kesalahan saat login');
       }
     } catch (error) {
+      // Tangani error jika ada masalah dengan request
       console.error('Error saat login:', error);
       setError('Terjadi kesalahan saat login');
     }
@@ -57,7 +67,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
         <div className="loginForm">
           <h1>SIMS PPOB</h1>
           <p>Masuk atau buat akun untuk memulai</p>
-          {error && <p className="error">{error}</p>}
+          {error && <p className="error">{error}</p>} {/* Tampilkan pesan error jika ada */}
           <form onSubmit={handleSubmit}>
             <InputField
               label="Email:"
