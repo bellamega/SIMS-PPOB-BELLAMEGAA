@@ -27,6 +27,7 @@ const HomePage = () => {
   const profile = useSelector((state) => state.profile);
   const balance = useSelector((state) => state.balance);
   const services = useSelector((state) => state.services);
+  const banner = useSelector((state) => state.banner);  // Untuk banner
   const error = useSelector((state) => state.error);
 
   // Fetching data on component mount
@@ -88,7 +89,10 @@ const HomePage = () => {
 
         // Fetch Banner (Public API - no token needed)
         const bannerResponse = await fetch('https://take-home-test-api.nutech-integrasi.com/banner', {
-          headers: { 'Accept': 'application/json' },
+          headers: { 
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`  // Menambahkan token di sini jika perlu
+          },
         });
 
         if (!bannerResponse.ok) {
@@ -114,7 +118,11 @@ const HomePage = () => {
   }, [dispatch]);
 
   if (error) {
-    return <div className="error-message">{error}</div>;
+    return (
+      <div className="error-message">
+        <p>{error}</p>
+      </div>
+    );
   }
 
   if (!profile) {
@@ -172,6 +180,15 @@ const HomePage = () => {
             </p>
             <button onClick={() => navigate('/saldo')}>Lihat Saldo</button>
           </div>
+        </section>
+
+        {/* Menampilkan Banner */}
+        <section className="banner">
+          {banner && banner.imageUrl ? (
+            <img src={banner.imageUrl} alt="Banner" className="banner-img" />
+          ) : (
+            <p>Tidak ada banner saat ini.</p>
+          )}
         </section>
 
         <div className="services-container">
