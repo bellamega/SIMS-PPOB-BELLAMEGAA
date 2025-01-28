@@ -67,16 +67,17 @@ const TopUpPage = () => {
       setError("");
       setSuccessMessage("");
 
-      const response = await axios.post(
-        "https://take-home-test-api.nutech-integrasi.com/topup",
-        { top_up_amount: Number(topUpAmount) },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.post(
+  "https://take-home-test-api.nutech-integrasi.com/topup",
+  { top_up_amount: Number(topUpAmount) },
+  {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
 
       setSuccessMessage(
         `Top Up berhasil! Saldo Anda bertambah sebesar Rp${Number(
