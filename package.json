@@ -17,23 +17,18 @@
     "style-loader": "^4.0.0"
   },
   "scripts": {
+    "prestart": "chmod +x node_modules/.bin/react-app-rewired",
     "start": "react-app-rewired start",
+    "prebuild": "chmod +x node_modules/.bin/react-app-rewired",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": ["react-app", "react-app/jest"]
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",

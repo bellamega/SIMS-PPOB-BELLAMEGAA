@@ -9,14 +9,18 @@ const TopUpPage = () => {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [balance, setBalance] = useState(0); // Menambahkan state untuk saldo
+  const [balance, setBalance] = useState(0);
+  const [isBalanceVisible, setIsBalanceVisible] = useState(true); // For toggling balance visibility
+  const [userName, setUserName] = useState("Kristanto Wibowo"); // Default, can be fetched from localStorage
   const navigate = useNavigate();
 
-  // Ambil token dari localStorage atau state global (contoh untuk keamanan)
   const token = localStorage.getItem("jwtToken");
 
-  // Simulasi atau ambil saldo dari server (misalnya)
   useEffect(() => {
+    // Fetch user name from localStorage if exists
+    const fetchedUserName = localStorage.getItem("userName");
+    if (fetchedUserName) setUserName(fetchedUserName);
+
     const fetchBalance = async () => {
       try {
         const response = await axios.get(
@@ -28,7 +32,7 @@ const TopUpPage = () => {
             },
           }
         );
-        setBalance(response.data.balance); // Simpan saldo
+        setBalance(response.data.balance);
       } catch (err) {
         console.error("Error fetching balance:", err);
       }
@@ -63,25 +67,26 @@ const TopUpPage = () => {
       setError("");
       setSuccessMessage("");
 
-      const response = await axios.post(
-        "https://take-home-test-api.nutech-integrasi.com/topup",
-        { top_up_amount: Number(topUpAmount) },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.post(
+  "https://take-home-test-api.nutech-integrasi.com/topup",
+  { top_up_amount: Number(topUpAmount) },
+  {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
 
       setSuccessMessage(
         `Top Up berhasil! Saldo Anda bertambah sebesar Rp${Number(
           topUpAmount
         ).toLocaleString()}.`
       );
-      setBalance(balance + Number(topUpAmount)); // Update saldo setelah top up
+      setBalance(balance + Number(topUpAmount));
       setTopUpAmount("");
-      navigate("/transaction"); // Navigasi ke halaman transaksi
+      navigate("/transaction");
     } catch (err) {
       if (err.response) {
         setError(
@@ -95,16 +100,20 @@ const TopUpPage = () => {
     }
   };
 
+  const toggleBalanceVisibility = () => {
+    setIsBalanceVisible(!isBalanceVisible);
+  };
+
   return (
     <div className="top-up-container">
       <Header />
 
       <div className="top-up-content">
-        <BalanceSection balance={balance} />
+        <BalanceSection balance={balance} isVisible={isBalanceVisible} toggleVisibility={toggleBalanceVisibility} />
 
         <div className="user-greeting">
           <h3>Selamat datang,</h3>
-          <h2>Kristanto Wibowo</h2>
+          <h2>{userName}</h2>
           <p>Silahkan masukkan</p>
         </div>
 
@@ -123,7 +132,7 @@ const TopUpPage = () => {
           <button
             className="top-up-button"
             onClick={handleTopUpSubmit}
-            disabled={loading}
+            disabled={loading || Number(topUpAmount) <= 0}
           >
             {loading ? "Proses..." : "Top Up"}
           </button>
@@ -140,25 +149,31 @@ const TopUpPage = () => {
 
 const Header = () => (
   <header className="top-up-header">
-     <h1>
-    <img src={Logo} alt="Logo" className="logo-img" /> {/* Menambahkan gambar logo */}
-          <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
-          SIMS PPOB
-        </Link>
-  </h1>
-  <nav>
-    <Link to="/topup">Top Up</Link>
-    <Link to="/transaction">Transaction</Link>
-    <Link to="/account">Akun</Link>
-  </nav>
+    <h1>
+      <img src={Logo} alt="Logo" className="logo-img" />
+      <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+        SIMS PPOB
+      </Link>
+    </h1>
+    <nav>
+      <Link to="/topup">Top Up</Link>
+      <Link to="/transaction">Transaction</Link>
+      <Link to="/account">Akun</Link>
+    </nav>
   </header>
 );
 
-const BalanceSection = ({ balance }) => (
+const BalanceSection = ({ balance, isVisible, toggleVisibility }) => (
   <div className="top-up-balance">
     <h2>Saldo Anda</h2>
-    <p className="balance-amount">Rp {balance.toLocaleString()}</p>
-    <button className="hide-balance">Tutup Saldo 👁</button>
+    {isVisible ? (
+      <p className="balance-amount">Rp {balance.toLocaleString()}</p>
+    ) : (
+      <p className="balance-amount">*****</p>
+    )}
+    <button className="hide-balance" onClick={toggleVisibility}>
+      {isVisible ? "Tutup Saldo 👁" : "Lihat Saldo 👁"}
+    </button>
   </div>
 );
 

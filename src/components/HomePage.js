@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProfile, setBalance, setServices, setBanner, setError } from '../redux/actions';
@@ -17,15 +17,9 @@ import KurbanIcon from '../assets/Kurban.png';
 import ZakatIcon from '../assets/Zakat.png';
 import PaketDataIcon from '../assets/PaketData.png';
 import Logo from '../assets/Logo.png';
-import Banner1 from '../assets/Banner 1.png';
-import Banner2 from '../assets/Banner 2.png';
-import Banner3 from '../assets/Banner 3.png';
-import Banner4 from '../assets/Banner 4.png';
-import Banner5 from '../assets/Banner 5.png';
 
 const HomePage = () => {
   const servicesListRef = useRef(); // Untuk referensi services list
- 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +27,6 @@ const HomePage = () => {
   const profile = useSelector((state) => state.profile);
   const balance = useSelector((state) => state.balance);
   const services = useSelector((state) => state.services);
-  const banner = useSelector((state) => state.banner);
   const error = useSelector((state) => state.error);
 
   // Fetching data on component mount
@@ -143,25 +136,15 @@ const HomePage = () => {
     { name: 'Paket Data', icon: PaketDataIcon },
   ];
 
-  // Fungsi untuk menggeser ke kanan
-  const scrollRight = () => {
-    if (servicesListRef.current) {
-      servicesListRef.current.scrollBy({
-        left: 200,  // Menggeser 200px ke kanan
-        behavior: 'smooth',
-      });
-    }
-  };
-
   return (
     <div className="homepage">
       <header>
-      <h1 className="logo">
-      <img src={Logo} alt="Logo" className="logo-img" /> {/* Menambahkan gambar logo */}
-      <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
-      SIMS PPOB
-    </Link>
-       </h1>
+        <h1 className="logo">
+          <img src={Logo} alt="Logo" className="logo-img" />
+          <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+            SIMS PPOB
+          </Link>
+        </h1>
         <nav>
           <ul>
             <li><Link to="/topup">Top Up</Link></li>
@@ -192,11 +175,7 @@ const HomePage = () => {
         </section>
 
         <div className="services-container">
-          {/* Daftar layanan */}
-          <div 
-            className="services-list" 
-            ref={servicesListRef} 
-          >
+          <div className="services-list" ref={servicesListRef}>
             {servicesList.map((service, index) => (
               <div key={index} className="service-item">
                 <img src={service.icon} alt={service.name} />
@@ -204,10 +183,8 @@ const HomePage = () => {
               </div>
             ))}
           </div>
-          
         </div>
 
-        {/* Other Sections (Services, Promotions) */}
         <section className="services">
           {services && services.length > 0 ? (
             services.map((service, index) => (
@@ -220,8 +197,6 @@ const HomePage = () => {
             <p>Tidak ada layanan saat ini.</p>
           )}
         </section>
-
-        
       </main>
 
       <footer>
