@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "build": "node ./node_modules/react-app-rewired/bin/index.js build"
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@reduxjs/toolkit": "^2.5.0",
@@ -19,7 +18,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "node ./node_modules/react-app-rewired/bin/index.js build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
