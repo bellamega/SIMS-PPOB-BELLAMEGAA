@@ -1,25 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react'; // Import useState
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProfile, setBalance, setServices, setBanner, setError } from '../redux/actions';
 import './styles/HomePage.css';
 import ProfilePhoto from '../assets/ProfilePhoto.png';
-import PBBIcon from '../assets/PBB.png';
-import ListrikIcon from '../assets/Listrik.png';
-import PulsaIcon from '../assets/Pulsa.png';
-import PDAMIcon from '../assets/PDAM.png';
-import PGNIcon from '../assets/PGN.png';
-import TelevisiIcon from '../assets/Televisi.png';
-import MusikIcon from '../assets/Musik.png';
-import VoucherGameIcon from '../assets/Game.png';
-import VoucherMakananIcon from '../assets/VoucherMakanan.png';
-import KurbanIcon from '../assets/Kurban.png';
-import ZakatIcon from '../assets/Zakat.png';
-import PaketDataIcon from '../assets/PaketData.png';
 import Logo from '../assets/Logo.png';
 
 const HomePage = () => {
-  const servicesListRef = useRef(); // Untuk referensi services list
+  const servicesListRef = useRef();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State untuk dropdown
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,10 +16,14 @@ const HomePage = () => {
   const profile = useSelector((state) => state.profile);
   const balance = useSelector((state) => state.balance);
   const services = useSelector((state) => state.services);
-  const banner = useSelector((state) => state.banner);  // Untuk banner
+  const banner = useSelector((state) => state.banner);
   const error = useSelector((state) => state.error);
 
-  // Fetching data on component mount
+  // Fungsi untuk toggle dropdown
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,65 +37,12 @@ const HomePage = () => {
         const profileResponse = await fetch('https://take-home-test-api.nutech-integrasi.com/profile', {
           headers: { 
             'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`  // Tambahkan token di header
-          },
-        });
-
-        if (!profileResponse.ok) {
-          const errorData = await profileResponse.json();
-          dispatch(setError(`Terjadi kesalahan saat mengambil profile: ${errorData.message || 'Unknown error'}`));
-          return;
-        }
-
-        const profileData = await profileResponse.json();
-        dispatch(setProfile(profileData));
-
-        // Fetch Balance
-        const balanceResponse = await fetch('https://take-home-test-api.nutech-integrasi.com/balance', {
-          headers: { 
-            'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
           },
         });
-        if (!balanceResponse.ok) {
-          const errorData = await balanceResponse.json();
-          dispatch(setError(`Terjadi kesalahan saat mengambil saldo: ${errorData.message || 'Unknown error'}`));
-          return;
-        }
-        const balanceData = await balanceResponse.json();
-        dispatch(setBalance(balanceData));
+        
+        // Lanjutkan dengan kode fetching data yang lain (balance, services, etc.)
 
-        // Fetch Services
-        const servicesResponse = await fetch('https://take-home-test-api.nutech-integrasi.com/services', {
-          headers: { 
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-        });
-        if (!servicesResponse.ok) {
-          const errorData = await servicesResponse.json();
-          dispatch(setError(`Terjadi kesalahan saat mengambil services: ${errorData.message || 'Unknown error'}`));
-          return;
-        }
-        const servicesData = await servicesResponse.json();
-        dispatch(setServices(servicesData));
-
-        // Fetch Banner (Public API - no token needed)
-        const bannerResponse = await fetch('https://take-home-test-api.nutech-integrasi.com/banner', {
-          headers: { 
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`  // Menambahkan token di sini jika perlu
-          },
-        });
-
-        if (!bannerResponse.ok) {
-          const errorData = await bannerResponse.json();
-          dispatch(setError(`Terjadi kesalahan saat mengambil banner: ${errorData.message || 'Unknown error'}`));
-          return;
-        }
-
-        const bannerData = await bannerResponse.json();
-        dispatch(setBanner(bannerData.data));  // Menyimpan banner data yang diambil dari API
       } catch (err) {
         dispatch(setError('Terjadi kesalahan saat mengambil data.'));
         console.error('Error fetching data:', err);
@@ -111,7 +51,6 @@ const HomePage = () => {
 
     fetchData();
 
-    // Cleanup function to reset error when component unmounts
     return () => {
       dispatch(setError(null)); // Reset error state on cleanup
     };
@@ -126,23 +65,8 @@ const HomePage = () => {
   }
 
   if (!profile) {
-    return <div>Loading...</div>; // Display loading state while profile is being fetched
+    return <div>Loading...</div>;
   }
-
-  const servicesList = [
-    { name: 'PBB', icon: PBBIcon },
-    { name: 'Listrik', icon: ListrikIcon },
-    { name: 'Pulsa', icon: PulsaIcon },
-    { name: 'PDAM', icon: PDAMIcon },
-    { name: 'PGN', icon: PGNIcon },
-    { name: 'Televisi', icon: TelevisiIcon },
-    { name: 'Musik', icon: MusikIcon },
-    { name: 'Voucher Game', icon: VoucherGameIcon },
-    { name: 'Voucher Makanan', icon: VoucherMakananIcon },
-    { name: 'Kurban', icon: KurbanIcon },
-    { name: 'Zakat', icon: ZakatIcon },
-    { name: 'Paket Data', icon: PaketDataIcon },
-  ];
 
   return (
     <div className="homepage">
@@ -164,11 +88,36 @@ const HomePage = () => {
 
       <main>
         <section className="user-info">
-          <img
-            src={profile.profileImage || ProfilePhoto}
-            alt="User Avatar"
-            className="avatar"
-          />
+          <div className="profile-container">
+            <img
+              src={profile.profileImage || ProfilePhoto}
+              alt="User Avatar"
+              className="avatar"
+              onClick={toggleDropdown} // Tambahkan onClick untuk toggle dropdown
+            />
+            {isDropdownOpen && (
+              <div className="dropdown-menu">
+                <div className="dropdown-item">
+                  <i className="icon messages"></i> Messages
+                </div>
+                <div className="dropdown-item">
+                  <i className="icon favorites"></i> Favorites
+                </div>
+                <div className="dropdown-item">
+                  <i className="icon add-people"></i> Add People
+                </div>
+                <div className="dropdown-item">
+                  <i className="icon settings"></i> Settings
+                </div>
+                <div className="dropdown-item">
+                  <i className="icon downloads"></i> Downloads
+                </div>
+                <div className="dropdown-item">
+                  <i className="icon logout"></i> Log Out
+                </div>
+              </div>
+            )}
+          </div>
           <p>Selamat datang, {profile.name}</p>
         </section>
 
@@ -191,17 +140,7 @@ const HomePage = () => {
           )}
         </section>
 
-        <div className="services-container">
-          <div className="services-list" ref={servicesListRef}>
-            {servicesList.map((service, index) => (
-              <div key={index} className="service-item">
-                <img src={service.icon} alt={service.name} />
-                <p>{service.name}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
+        {/* Layanan */}
         <section className="services">
           {services && services.length > 0 ? (
             services.map((service, index) => (
