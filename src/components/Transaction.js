@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./styles/Transaction.css";
+import Logo from '../assets/Logo.png';
 
 const transactions = [
   { amount: "+ Rp10.000", date: "17 Agustus 2023 13:10 WIB", type: "Top Up Saldo" },
@@ -25,6 +26,9 @@ const TransactionPage = () => {
     <div className="transaction-container">
       <header className="header">
       <h1 className="logo">
+    <div className="logo">
+          <img src={Logo} alt="Logo" className="logo-img" />
+          </div>
           <Link to="/" style={{ textDecoration: "none", color: "black" }}>SIMS PPOB</Link>
         </h1>
         <nav>
