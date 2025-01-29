@@ -4,6 +4,8 @@ const initialState = {
   services: [],
   banner: null,
   error: null,
+  topUpAmount: 0, // Tambahkan topUpAmount
+  successMessage: "", // Tambahkan successMessage
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -18,6 +20,10 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, banner: action.payload };
     case 'SET_ERROR':
       return { ...state, error: action.payload };
+    case 'SET_TOP_UP_AMOUNT': // Tambahkan action baru untuk topUpAmount
+      return { ...state, topUpAmount: action.payload };
+    case 'SET_SUCCESS_MESSAGE': // Tambahkan action baru untuk successMessage
+      return { ...state, successMessage: action.payload };
     default:
       return state;
   }
