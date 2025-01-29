@@ -66,9 +66,10 @@ const LoginForm = ({ setIsLoggedIn }) => {
     <div className="loginContainer">
       <div className="formContainer">
         <div className="loginForm">
-          <h1 className="logo">
+          <div className="logo">
           <img src={Logo} alt="Logo" className="logo-img" />
           <h1>SIMS PPOB</h1>
+          </div>
           <p>Masuk atau buat akun untuk memulai</p>
           {error && <p className="error">{error}</p>} {/* Tampilkan pesan error jika ada */}
           <form onSubmit={handleSubmit}>
