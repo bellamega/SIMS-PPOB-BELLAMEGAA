@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';  // Import useDispatch untuk Redux
 import InputField from './InputField';
 import './styles/LoginForm.css';
 import illustrator from './assets/illustrator.png';
 import Logo from '../assets/Logo.png';
+import { login } from '../redux/authSlice';  // Import action login
 
-const LoginForm = ({ setIsLoggedIn }) => {
+const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();  // Inisialisasi dispatch Redux
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,11 +42,12 @@ const LoginForm = ({ setIsLoggedIn }) => {
           console.log('Login berhasil:', result);
 
           // Simpan token di localStorage
-          localStorage.setItem('token', result.data.token); 
+          localStorage.setItem('token', result.data.token);
           localStorage.setItem('isLoggedIn', 'true'); // Set login status ke true
-          
-          setIsLoggedIn(true); // Update state login
-          
+
+          // Dispatch Redux untuk menyimpan status login dan token
+          dispatch(login({ token: result.data.token }));
+
           // Navigasi ke halaman homepage setelah login berhasil
           navigate('/home'); // Pastikan route '/home' sudah sesuai
         } else {
@@ -67,8 +71,8 @@ const LoginForm = ({ setIsLoggedIn }) => {
       <div className="formContainer">
         <div className="loginForm">
           <div className="logo">
-          <img src={Logo} alt="Logo" className="logo-img" />
-          <h1>SIMS PPOB</h1>
+            <img src={Logo} alt="Logo" className="logo-img" />
+            <h1>SIMS PPOB</h1>
           </div>
           <p>Masuk atau buat akun untuk memulai</p>
           {error && <p className="error">{error}</p>} {/* Tampilkan pesan error jika ada */}
