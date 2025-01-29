@@ -1,14 +1,7 @@
-// src/redux/Store.js
-import { configureStore } from '@reduxjs/toolkit';
-import registrationReducer from './registrationReducer';
-import profileReducer from './slice/profileSlice'; 
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
 
-
-const store = configureStore({
-  reducer: {
-    registration: registrationReducer,
-    profile: profileReducer, // Pastikan reducer profile ada di sini
-  },
-});
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;
