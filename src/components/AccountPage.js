@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setProfile } from "../redux/slice/profileSlice";
 import "./styles/AccountPage.css";
-import Logo from '../assets/Logo.png';
 
 const AccountPage = () => {
   const profile = useSelector((state) => state.profile);
