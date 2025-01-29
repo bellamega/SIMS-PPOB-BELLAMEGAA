@@ -81,7 +81,19 @@ const HomePage = () => {
           <ul>
             <li><Link to="/topup">Top Up</Link></li>
             <li><Link to="/transaction">Transaction</Link></li>
-            <li><Link to="/account">Akun</Link></li>
+            {/* Dropdown Menu */}
+            <li className="dropdown">
+              <button onClick={toggleDropdown} className="dropdown-btn">
+                Akun
+              </button>
+              {dropdownOpen && (
+                <ul className="dropdown-menu">
+                  <li><a href="/profile">Profile</a></li>
+                  <li><a href="/settings">Settings</a></li>
+                  <li><a href="/logout">Logout</a></li>
+                </ul>
+              )}
+            </li>
           </ul>
         </nav>
       </header>
@@ -95,30 +107,6 @@ const HomePage = () => {
               className="avatar"
               onClick={toggleDropdown} // Tambahkan onClick untuk toggle dropdown
             />
-            {isDropdownOpen && (
-              <div className="dropdown-menu">
-                <div className="dropdown-item">
-                  <i className="icon messages"></i> Messages
-                </div>
-                <div className="dropdown-item">
-                  <i className="icon favorites"></i> Favorites
-                </div>
-                <div className="dropdown-item">
-                  <i className="icon add-people"></i> Add People
-                </div>
-                <div className="dropdown-item">
-                  <i className="icon settings"></i> Settings
-                </div>
-                <div className="dropdown-item">
-                  <i className="icon downloads"></i> Downloads
-                </div>
-                <div className="dropdown-item">
-                  <i className="icon logout"></i> Log Out
-                </div>
-              </div>
-            )}
-          </div>
-          <p>Selamat datang, {profile.name}</p>
         </section>
 
         <section className="saldo">
