@@ -3,6 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setTopUpAmount, setBalance, setError, setSuccessMessage } from './redux/actions';
 
+const handleNavigateToBayar = () => {
+  if (!topUpAmount || Number(topUpAmount) <= 0) {
+    dispatch(setError("Masukkan nominal yang valid."));
+    return;
+  }
+
+  navigate("/bayar", { state: { topUpAmount } });
+};
+
+
 const TopUpPage = () => {
   const dispatch = useDispatch();
   const { topUpAmount, balance, error, successMessage } = useSelector((state) => state);
