@@ -5,6 +5,8 @@ import { setProfile } from "../redux/slice/profileSlice";
 import "./styles/AccountPage.css";
 import Logo from '../assets/Logo.png';
 
+console.log(Logo); // Tambahkan di sini untuk memeriksa apakah path benar
+
 const AccountPage = () => {
   const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
