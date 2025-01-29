@@ -344,3 +344,59 @@ nav a:hover {
     max-width: 100%; /* Banner mengambil lebar penuh pada layar kecil */
   }
 }
+
+.homepage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.profile-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  width: 200px;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+/* Tambahkan warna highlight untuk bagian kiri */
+.dropdown-item:nth-child(even) {
+  background-color: #e0f8e0;
+}
+
