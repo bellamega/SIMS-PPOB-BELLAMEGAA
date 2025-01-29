@@ -110,10 +110,10 @@ const TopUpPage = () => {
             onChange={handleTopUpAmountChange}
             disabled={loading}
           />
-          <button
-            onClick={handleTopUpSubmit}
-            disabled={loading || Number(topUpAmount) <= 0}
-          >
+          <button onClick={handleNavigateToBayar}>
+          Beli
+          </button>
+
             {loading ? "Proses..." : "Top Up"}
           </button>
         </div>
