@@ -44,7 +44,7 @@ const AccountPage = () => {
     <div className="container">
       <header className="header">
         <div className="logo">
-        <img src={Logo} alt="Logo" className="logo-img" />
+        <img src="/src/assets/Logo.png" alt="Logo" />
         </div>
         <nav className="nav">
           <Link to="/topup" className="nav-link">
