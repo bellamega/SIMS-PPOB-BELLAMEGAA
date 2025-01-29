@@ -5,16 +5,17 @@ import { setProfile } from "../redux/slice/profileSlice";
 import "./styles/AccountPage.css";
 import Logo from '../assets/Logo.png';
 
-console.log(Logo); // Tambahkan di sini untuk memeriksa apakah path benar
+console.log(Logo); // Cek apakah path benar
 
 const AccountPage = () => {
-  const profile = useSelector((state) => state.profile);
+  const profile = useSelector((state) => state.profile); // Ambil data profile dari Redux
   const dispatch = useDispatch();
 
   const [formState, setFormState] = useState({
     firstName: profile.firstName || "",
     lastName: profile.lastName || "",
     email: profile.email || "",
+    avatar: profile.avatar || "",
   });
 
   useEffect(() => {
@@ -23,8 +24,9 @@ const AccountPage = () => {
         email: "wallet@nutech.com",
         firstName: "Kristanto",
         lastName: "Wibowo",
+        avatar: "https://via.placeholder.com/100", // Tambahkan avatar awal
       };
-      dispatch(setProfile(userData));
+      dispatch(setProfile(userData)); // Update Redux state dengan data yang didapat
     };
     fetchUserData();
   }, [dispatch]);
@@ -37,9 +39,20 @@ const AccountPage = () => {
     }));
   };
 
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Logika untuk mengganti avatar, bisa mengupload ke server atau menggunakan URL
+      setFormState((prevState) => ({
+        ...prevState,
+        avatar: URL.createObjectURL(file),
+      }));
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setProfile(formState));
+    dispatch(setProfile(formState)); // Kirim data baru ke Redux
   };
 
   return (
@@ -52,29 +65,30 @@ const AccountPage = () => {
           </Link>
         </h1>
         <nav className="nav">
-          <Link to="/topup" className="nav-link">
-            Top Up
-          </Link>
-          <Link to="/transaction" className="nav-link">
-            Transaction
-          </Link>
-          <Link to="/account" className="nav-link active">
-            Akun
-          </Link>
+          <Link to="/topup" className="nav-link">Top Up</Link>
+          <Link to="/transaction" className="nav-link">Transaction</Link>
+          <Link to="/account" className="nav-link active">Akun</Link>
         </nav>
       </header>
+
       <main className="main">
         <div className="avatar-container">
           <img
-            src={profile.avatar || "https://via.placeholder.com/100"}
+            src={formState.avatar || "https://via.placeholder.com/100"}
             alt="User Avatar"
             className="avatar"
           />
-          <button className="edit-button">✏️</button>
+          <input 
+            type="file" 
+            className="edit-avatar-button" 
+            onChange={handleAvatarChange}
+          />
         </div>
+
         <h2 className="username">
-          {profile.firstName} {profile.lastName}
+          {formState.firstName} {formState.lastName}
         </h2>
+
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form-label">Email</label>
@@ -87,6 +101,7 @@ const AccountPage = () => {
               readOnly
             />
           </div>
+
           <div className="form-group">
             <label className="form-label">Nama Depan</label>
             <input
@@ -97,6 +112,7 @@ const AccountPage = () => {
               className="form-input"
             />
           </div>
+
           <div className="form-group">
             <label className="form-label">Nama Belakang</label>
             <input
@@ -107,6 +123,7 @@ const AccountPage = () => {
               className="form-input"
             />
           </div>
+
           <button type="submit" className="submit-button">
             Simpan
           </button>
