@@ -1,11 +1,11 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from './reducers';
-import topUpReducer from './reducers';
+import topUpReducer from './reducers'; // Ensure this is the correct path to your reducer
 
-// Gabungkan reducer jika ada lebih dari satu
+// Combine your reducers here
 const rootReducer = combineReducers({
   topUp: topUpReducer,
+  // You can add more reducers here if you have more
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
