@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setTopUpAmount, setBalance, setError, setSuccessMessage } from './redux/actions';
-
-const handleNavigateToBayar = () => {
-  if (!topUpAmount || Number(topUpAmount) <= 0) {
-    dispatch(setError("Masukkan nominal yang valid."));
-    return;
-  }
-
-  navigate("/bayar", { state: { topUpAmount } });
-};
-
+import { setTopUpAmount, setBalance, setError, setSuccessMessage } from "./redux/actions";
 
 const TopUpPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { topUpAmount, balance, error, successMessage } = useSelector((state) => state);
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("jwtToken");
@@ -97,6 +89,16 @@ const TopUpPage = () => {
     }
   };
 
+  // Fungsi navigasi ke halaman Bayar
+  const handleNavigateToBayar = () => {
+    if (!topUpAmount || Number(topUpAmount) <= 0) {
+      dispatch(setError("Masukkan nominal yang valid."));
+      return;
+    }
+
+    navigate("/bayar", { state: { topUpAmount } });
+  };
+
   return (
     <div className="top-up-container">
       <div className="top-up-content">
@@ -110,11 +112,11 @@ const TopUpPage = () => {
             onChange={handleTopUpAmountChange}
             disabled={loading}
           />
-          <button onClick={handleNavigateToBayar}>
-          Beli
-          </button>
-
+          <button onClick={handleTopUpSubmit} disabled={loading}>
             {loading ? "Proses..." : "Top Up"}
+          </button>
+          <button onClick={handleNavigateToBayar} disabled={loading || Number(topUpAmount) <= 0}>
+            Beli
           </button>
         </div>
       </div>
