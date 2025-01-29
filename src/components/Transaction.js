@@ -25,24 +25,21 @@ const TransactionPage = () => {
   return (
     <div className="transaction-container">
       <header className="header">
-      <h1 className="logo">
-    <div className="logo">
-          <img src={Logo} alt="Logo" className="logo-img" />
-          </div>
-          <Link to="/" style={{ textDecoration: "none", color: "black" }}>SIMS PPOB</Link>
-        </h1>
-        <nav>
-          <ul className="nav-links">
-          <li>
-              <Link to="/topup">Top Up</Link>
-            </li>
-            <li>
-              <Link to="/transaction">Transaction</Link>
-            </li>
-            <li>Akun</li>
-          </ul>
-        </nav>
-      </header>
+  <div className="logo">
+    <img src={Logo} alt="Logo" className="logo-img" />
+  </div>
+  <h1>
+    <Link to="/" style={{ textDecoration: "none", color: "black" }}>SIMS PPOB</Link>
+  </h1>
+  <nav>
+    <ul className="nav-links">
+      <li><Link to="/topup">Top Up</Link></li>
+      <li><Link to="/transaction">Transaction</Link></li>
+      <li>Akun</li>
+    </ul>
+  </nav>
+</header>
+
 
       <div className="welcome-section">
         <h2>Selamat datang,</h2>
