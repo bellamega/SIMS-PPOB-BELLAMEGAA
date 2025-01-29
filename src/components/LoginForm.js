@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import InputField from './InputField';
 import './styles/LoginForm.css';
 import illustrator from './assets/illustrator.png';
+import Logo from '../assets/Logo.png';
 
 const LoginForm = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
@@ -65,6 +66,8 @@ const LoginForm = ({ setIsLoggedIn }) => {
     <div className="loginContainer">
       <div className="formContainer">
         <div className="loginForm">
+          <h1 className="logo">
+          <img src={Logo} alt="Logo" className="logo-img" />
           <h1>SIMS PPOB</h1>
           <p>Masuk atau buat akun untuk memulai</p>
           {error && <p className="error">{error}</p>} {/* Tampilkan pesan error jika ada */}
