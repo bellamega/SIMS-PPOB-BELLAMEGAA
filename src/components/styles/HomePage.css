@@ -74,7 +74,7 @@ nav li:hover {
 
 /* Saldo Section */
 .saldo-container {
-  background: url('../assets/background-saldo.jpg') no-repeat center center/cover;
+  background: url('../assets/BackgroundSaldo.png') no-repeat center center/cover;
   color: white;
   padding: 2rem;
   border-radius: 12px;
