@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setTopUpAmount, setBalance, setError, setSuccessMessage } from './redux/actions';
 
 const TopUpPage = () => {
   const dispatch = useDispatch();
-  const { topUpAmount, balance, error, successMessage } = useSelector((state) => state.topUp);
+  const { topUpAmount, balance, error, successMessage } = useSelector((state) => state);
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("jwtToken");
 
