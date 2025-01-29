@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setProfile } from "../redux/slice/profileSlice";
 import "./styles/AccountPage.css";
+import Logo from '../assets/Logo.png';
 
 const AccountPage = () => {
   const profile = useSelector((state) => state.profile);
@@ -42,9 +43,12 @@ const AccountPage = () => {
   return (
     <div className="container">
       <header className="header">
-        <div className="logo">
-        <img src="/src/assets/Logo.png" alt="Logo" />
-        </div>
+        <h1 className="logo">
+          <img src={Logo} alt="Logo" className="logo-img" />
+          <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+            SIMS PPOB
+          </Link>
+        </h1>
         <nav className="nav">
           <Link to="/topup" className="nav-link">
             Top Up
