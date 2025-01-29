@@ -1,18 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react'; // Import useState
+import React, { useEffect, useState } from 'react'; // Gunakan useState untuk dropdown
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProfile, setBalance, setServices, setBanner, setError } from '../redux/actions';
+import axios from 'axios';
 import './styles/HomePage.css';
 import ProfilePhoto from '../assets/ProfilePhoto.png';
 import Logo from '../assets/Logo.png';
 
 const HomePage = () => {
-  const servicesListRef = useRef();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State untuk dropdown
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Ambil state dari Redux store
   const profile = useSelector((state) => state.profile);
   const balance = useSelector((state) => state.balance);
   const services = useSelector((state) => state.services);
@@ -24,6 +24,7 @@ const HomePage = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  // Mengambil data dari API
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,15 +34,41 @@ const HomePage = () => {
           return;
         }
 
-        // Fetch Profile with Token
-        const profileResponse = await fetch('https://take-home-test-api.nutech-integrasi.com/profile', {
+        // Mengambil data profile
+        const profileResponse = await axios.get('https://take-home-test-api.nutech-integrasi.com/profile', {
           headers: { 
             'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
           },
         });
-        
-        // Lanjutkan dengan kode fetching data yang lain (balance, services, etc.)
+        dispatch(setProfile(profileResponse.data.data));
+
+        // Mengambil data saldo
+        const balanceResponse = await axios.get('https://take-home-test-api.nutech-integrasi.com/balance', {
+          headers: { 
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        dispatch(setBalance(balanceResponse.data.data));
+
+        // Mengambil data layanan
+        const servicesResponse = await axios.get('https://take-home-test-api.nutech-integrasi.com/services', {
+          headers: { 
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        dispatch(setServices(servicesResponse.data.data));
+
+        // Mengambil data banner
+        const bannerResponse = await axios.get('https://take-home-test-api.nutech-integrasi.com/banner', {
+          headers: { 
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        dispatch(setBanner(bannerResponse.data.data));
 
       } catch (err) {
         dispatch(setError('Terjadi kesalahan saat mengambil data.'));
@@ -56,6 +83,7 @@ const HomePage = () => {
     };
   }, [dispatch]);
 
+  // Menampilkan error jika ada
   if (error) {
     return (
       <div className="error-message">
@@ -64,6 +92,7 @@ const HomePage = () => {
     );
   }
 
+  // Menunggu data profile dimuat
   if (!profile) {
     return <div>Loading...</div>;
   }
@@ -86,7 +115,7 @@ const HomePage = () => {
               <button onClick={toggleDropdown} className="dropdown-btn">
                 Akun
               </button>
-              {dropdownOpen && (
+              {isDropdownOpen && (
                 <ul className="dropdown-menu">
                   <li><a href="/profile">Profile</a></li>
                   <li><a href="/settings">Settings</a></li>
@@ -107,13 +136,15 @@ const HomePage = () => {
               className="avatar"
               onClick={toggleDropdown} // Tambahkan onClick untuk toggle dropdown
             />
+            <p>{profile.first_name} {profile.last_name}</p>
+          </div>
         </section>
 
         <section className="saldo">
           <div className="saldo-container">
             <p>Saldo Anda</p>
             <p className="saldo-amount">
-              {balance && balance.amount ? balance.amount : 'Saldo tidak tersedia'}
+              {balance ? balance.amount : 'Saldo tidak tersedia'}
             </p>
             <button onClick={() => navigate('/saldo')}>Lihat Saldo</button>
           </div>
@@ -121,7 +152,7 @@ const HomePage = () => {
 
         {/* Menampilkan Banner */}
         <section className="banner">
-          {banner && banner.imageUrl ? (
+          {banner ? (
             <img src={banner.imageUrl} alt="Banner" className="banner-img" />
           ) : (
             <p>Tidak ada banner saat ini.</p>
