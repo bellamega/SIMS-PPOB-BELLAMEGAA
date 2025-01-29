@@ -1,11 +1,11 @@
-// registrationReducer.js
+// src/redux/registrationReducer.js
 import { createSlice } from '@reduxjs/toolkit';
 
 // Initial state
 const initialState = {
-  userData: null, // Sesuaikan dengan kebutuhan data
-  loading: false,
-  error: null,
+  userData: null, // Menyimpan data pengguna yang berhasil didaftarkan
+  loading: false, // Status loading saat proses registrasi
+  error: null, // Menyimpan error jika terjadi kesalahan
 };
 
 // Slice
@@ -14,13 +14,13 @@ const registrationSlice = createSlice({
   initialState,
   reducers: {
     setUserData(state, action) {
-      state.userData = action.payload;
+      state.userData = action.payload; // Mengubah state dengan data pengguna yang diterima
     },
     setLoading(state, action) {
-      state.loading = action.payload;
+      state.loading = action.payload; // Mengubah status loading
     },
     setError(state, action) {
-      state.error = action.payload;
+      state.error = action.payload; // Menyimpan error
     },
   },
 });
